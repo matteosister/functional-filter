@@ -1,0 +1,25 @@
+{
+    "name": "cypresslab/functional-filter",
+    "description": "A php library to sort collection by properties in a functional style",
+    "require": {
+        "phpcollection/phpcollection": "~0.4",
+        "beberlei/assert": "~2.1"
+    },
+    "require-dev": {
+        "phpspec/phpspec": "~2.0",
+        "phpunit/phpunit": "~4.4",
+        "phpspec/prophecy-phpunit": "~1.0"
+    },
+    "license": "LGPL-3.0+",
+    "authors": [
+        {
+            "name": "Matteo Giachino",
+            "email": "matteog@gmail.com"
+        }
+    ],
+    "config": {
+        "bin-dir": "bin"
+    },
+    "autoload": {"psr-0": {"": "src"}},
+    "minimum-stability": "stable"
+}
