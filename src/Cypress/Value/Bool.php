@@ -9,7 +9,6 @@
 namespace Cypress\Value;
 
 use Assert\Assertion;
-use Assert\InvalidArgumentException;
 
 class Bool extends Base
 {

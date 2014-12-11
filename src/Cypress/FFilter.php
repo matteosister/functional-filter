@@ -10,7 +10,7 @@ class FFilter
      * @param $method
      * @param $value
      *
-     * @return callable
+     * @return \Closure
      */
     protected function filtererByProperty($method, $value)
     {
