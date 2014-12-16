@@ -2,10 +2,33 @@
 
 namespace Cypress;
 
+use Assert\Assertion;
 use PhpCollection\Sequence;
 
 class FFilter
 {
+    private $elements;
+
+    /**
+     * @param array|Sequence|\Traversable $elements
+     */
+    public function __construct($elements)
+    {
+        if (is_array($elements)) {
+            $elements = new Sequence($elements);
+        }
+        Assertion::implementsInterface($elements, '\Traversable');
+        $this->elements = $elements;
+    }
+
+    /**
+     * @return array|Sequence|\Traversable
+     */
+    public function all()
+    {
+        return $this->elements;
+    }
+
     /**
      * @param $method
      * @param $value
