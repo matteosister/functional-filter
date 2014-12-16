@@ -22,4 +22,4 @@ before_script:
 
 script:
   - bin/phpunit
-  - bin/phpspec
+  - bin/phpspec run
