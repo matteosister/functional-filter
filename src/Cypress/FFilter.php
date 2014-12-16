@@ -64,8 +64,8 @@ class FFilter
     private function fcfExtractValue($value)
     {
         if (is_string($value) && $value[0] == '-') {
-            return [false, substr($value, 1)];
+            return array(false, substr($value, 1));
         }
-        return [true, $value];
+        return array(true, $value);
     }
 }
