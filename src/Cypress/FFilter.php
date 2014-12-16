@@ -15,7 +15,7 @@ class FFilter
     protected function filtererByProperty($method, $value)
     {
         return function ($subject) use ($method, $value) {
-            $compareTo = call_user_func([$subject, $method]);
+            $compareTo = call_user_func(array($subject, $method));
             if (is_array($value)) {
                 return $this->fcfCompareArray($compareTo, $value);
             }

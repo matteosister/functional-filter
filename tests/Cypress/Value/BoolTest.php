@@ -23,10 +23,10 @@ class BoolTest extends ProphecyTestCase
 
     public function test_instance_with_array()
     {
-        $b = new Bool([1,2,3]);
+        $b = new Bool(array(1,2,3));
         $this->assertTrue($b->isPositiveCheck());
         $this->assertTrue($b->isStrict());
-        $this->assertEquals([1,2,3], $b->getValue());
+        $this->assertEquals(array(1,2,3), $b->getValue());
     }
 
     public function test_instance_with_negative_string()
