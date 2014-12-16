@@ -23,7 +23,9 @@ class Bool extends Base
     private $strict;
 
     /**
-     * @param $value
+     * @param mixed $value         the value to be compared
+     * @param bool  $positiveCheck if true ==, if false !=
+     * @param bool  $strict        === instead of ==
      */
     public function __construct($value, $positiveCheck = true, $strict = true)
     {
@@ -33,7 +35,9 @@ class Bool extends Base
     }
 
     /**
-     * @param $value
+     *
+     *
+     * @param string $value
      * @return $this
      */
     public static function fromString($value)
