@@ -28,4 +28,9 @@ class FFilterSpec extends ObjectBehavior
         $this->beConstructedWith(new Sequence());
         $this->all()->beAnInstanceOf('PhpCollection\Sequence');
     }
+
+    function it_has_a_filter_method()
+    {
+        $this->filter()->shouldBeLike(new Sequence());
+    }
 }

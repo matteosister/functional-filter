@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "32b23b970ab84e8c66c0ed40a792f400",
+    "hash": "bd4eeb0c2e0990f5a0005b567d8c0b31",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -54,6 +54,58 @@
                 "validation"
             ],
             "time": "2014-11-06 10:17:53"
+        },
+        {
+            "name": "lstrojny/functional-php",
+            "version": "1.0.0-alpha4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lstrojny/functional-php.git",
+                "reference": "568281ca716e6cb423e629f932eb9dbb96e1e9ab"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lstrojny/functional-php/zipball/568281ca716e6cb423e629f932eb9dbb96e1e9ab",
+                "reference": "568281ca716e6cb423e629f932eb9dbb96e1e9ab",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/Functional/_import.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Lars Strojny",
+                    "email": "lstrojny@php.net",
+                    "homepage": "http://usrportage.de"
+                },
+                {
+                    "name": "Max Beutel",
+                    "email": "nash12@gmail.com"
+                }
+            ],
+            "description": "Functional primitives for PHP",
+            "keywords": [
+                "functional"
+            ],
+            "time": "2014-03-25 13:37:19"
         },
         {
             "name": "phpcollection/phpcollection",
@@ -1427,7 +1479,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "lstrojny/functional-php": 15
+    },
     "prefer-stable": false,
     "platform": [],
     "platform-dev": []

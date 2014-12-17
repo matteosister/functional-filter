@@ -30,6 +30,15 @@ class FFilter
     }
 
     /**
+     * @param array $filters
+     * @return array|Sequence|\Traversable
+     */
+    public function filter($filters = array())
+    {
+        return $this->elements;
+    }
+
+    /**
      * @param $method
      * @param $value
      *

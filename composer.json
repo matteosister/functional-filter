@@ -3,7 +3,8 @@
     "description": "A php library to sort collection by properties in a functional style",
     "require": {
         "phpcollection/phpcollection": "~0.4",
-        "beberlei/assert": "~2.1"
+        "beberlei/assert": "~2.1",
+        "lstrojny/functional-php": "~1.0.0-alpha4"
     },
     "require-dev": {
         "phpspec/phpspec": "~2.0",
