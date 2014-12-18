@@ -6,7 +6,6 @@ use Assert\Assertion;
 use Cypress\Value\Factory;
 use Cypress\Value\Value;
 use PhpCollection\Sequence;
-use Functional as F;
 
 class FFilter
 {
@@ -25,7 +24,7 @@ class FFilter
     }
 
     /**
-     * @return array|Sequence|\Traversable
+     * @return \Traversable
      */
     public function all()
     {
@@ -53,7 +52,7 @@ class FFilter
                 }
                 return Factory::create($v);
             })
-            ->foldLeft($elements, function(Sequence $elements, Value $value) {
+            ->foldLeft($elements, function (Sequence $elements, Value $value) {
                 return $elements->filter($value->getComparator());
             });
     }

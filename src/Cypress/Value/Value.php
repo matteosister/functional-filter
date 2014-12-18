@@ -8,7 +8,8 @@
 
 namespace Cypress\Value;
 
-interface Value {
+interface Value
+{
     /**
      * @return mixed
      */

@@ -74,11 +74,11 @@ class Bool extends Base
     }
 
     /**
-     * @return Callable
+     * @return \Closure
      */
     public function getComparator()
     {
-        return function($v) {
+        return function ($v) {
             if ($this->isPositiveCheck()) {
                 if ($this->isStrict()) {
                     return $v === $this->getValue();
