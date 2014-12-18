@@ -42,7 +42,7 @@ class FFilter
             $filters = new Sequence($filters);
         }
         if (is_string($filters)) {
-            $filters = new Sequence([$filters]);
+            $filters = new Sequence(array($filters));
         }
         Assertion::implementsInterface($filters, '\Traversable');
         $elements = $this->elements;
@@ -74,7 +74,7 @@ class FFilter
             if (is_scalar($value)) {
                 return $this->fcfCompareScalar($compareTo, $this->fcfExtractValue($value));
             }
-            throw new \RuntimeException('richiesta stringa o scalar');
+            throw new \RuntimeException('String or scalar requested');
         };
     }
 

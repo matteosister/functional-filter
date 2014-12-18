@@ -2,6 +2,7 @@
     "name": "cypresslab/functional-filter",
     "description": "A php library to sort collection by properties in a functional style",
     "require": {
+        "php": ">=5.4.0",
         "phpcollection/phpcollection": "~0.4",
         "beberlei/assert": "~2.1",
         "lstrojny/functional-php": "~1.0.0-alpha4"
