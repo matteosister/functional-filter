@@ -79,11 +79,11 @@ class Date extends Base
     }
 
     /**
-     * @return Callable
+     * @return \Closure
      */
     public function getComparator()
     {
-        return function($v) {
+        return function ($v) {
             if ($this->isLessCheck()) {
                 if ($this->isEqualCheck()) {
                     return $v <= $this->getValue();
