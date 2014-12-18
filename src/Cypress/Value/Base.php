@@ -8,7 +8,7 @@
 
 namespace Cypress\Value;
 
-abstract class Base
+abstract class Base implements Value
 {
     /**
      * @var mixed the reference value

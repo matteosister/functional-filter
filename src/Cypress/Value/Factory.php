@@ -5,11 +5,11 @@ namespace Cypress\Value;
 class Factory
 {
     /**
-     * @param $filter
+     * @param $stringFilter
      * @return Bool
      */
-    public static function create($filter)
+    public static function create($stringFilter)
     {
-        return new Bool($filter);
+        return new Bool($stringFilter);
     }
 }

@@ -3,7 +3,10 @@
 namespace Cypress;
 
 use Assert\Assertion;
+use Cypress\Value\Factory;
+use Cypress\Value\Value;
 use PhpCollection\Sequence;
+use Functional as F;
 
 class FFilter
 {
@@ -35,7 +38,24 @@ class FFilter
      */
     public function filter($filters = array())
     {
-        return $this->elements;
+        if (is_array($filters)) {
+            $filters = new Sequence($filters);
+        }
+        if (is_string($filters)) {
+            $filters = new Sequence([$filters]);
+        }
+        Assertion::implementsInterface($filters, '\Traversable');
+        $elements = $this->elements;
+        return $filters
+            ->map(function ($v) {
+                if ($v instanceof Value) {
+                    return $v;
+                }
+                return Factory::create($v);
+            })
+            ->foldLeft($elements, function(Sequence $elements, Value $value) {
+                return $elements->filter($value->getComparator());
+            });
     }
 
     /**

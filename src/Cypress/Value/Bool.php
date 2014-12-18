@@ -35,8 +35,6 @@ class Bool extends Base
     }
 
     /**
-     *
-     *
      * @param string $value
      * @return $this
      */
@@ -73,5 +71,27 @@ class Bool extends Base
     public function isStrict()
     {
         return $this->strict;
+    }
+
+    /**
+     * @return Callable
+     */
+    public function getComparator()
+    {
+        return function($v) {
+            if ($this->isPositiveCheck()) {
+                if ($this->isStrict()) {
+                    return $v === $this->getValue();
+                } else {
+                    return $v == $this->getValue();
+                }
+            } else {
+                if ($this->isStrict()) {
+                    return $v !== $this->getValue();
+                } else {
+                    return $v != $this->getValue();
+                }
+            }
+        };
     }
 }

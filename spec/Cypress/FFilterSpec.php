@@ -33,4 +33,25 @@ class FFilterSpec extends ObjectBehavior
     {
         $this->filter()->shouldBeLike(new Sequence());
     }
+
+    function it_filters_a_collection_with_one_filter_matching()
+    {
+        $this->beConstructedWith(array('a'));
+        $this->filter('a')->shouldContain('a');
+    }
+
+    function it_filters_a_collection_with_none_filter_matching()
+    {
+        $this->beConstructedWith(array('a'));
+        $this->filter('b')->shouldBeEmpty();
+    }
+
+    function getMatchers()
+    {
+        return array(
+            'contain' => function(Sequence $subject, $key) {
+                return $subject->contains($key);
+            }
+        );
+    }
 }

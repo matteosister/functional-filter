@@ -9,7 +9,7 @@ class Date extends Base
     /**
      * @var bool
      */
-    private $ascendingOrder;
+    private $lessCheck;
 
     /**
      * @var bool
@@ -18,13 +18,13 @@ class Date extends Base
 
     /**
      * @param $value
-     * @param bool $ascendingOrder
+     * @param bool $lessCheck
      * @param bool $equalCheck
      */
-    public function __construct($value, $ascendingOrder = true, $equalCheck = true)
+    public function __construct($value, $lessCheck = true, $equalCheck = true)
     {
         $this->value = $value;
-        $this->ascendingOrder = $ascendingOrder;
+        $this->lessCheck = $lessCheck;
         $this->equalCheck = $equalCheck;
     }
 
@@ -35,21 +35,39 @@ class Date extends Base
     public static function fromString($value)
     {
         Assertion::notBlank($value);
-        if (false === $timestamp = strtotime($value)) {
+        $lessCheck = true;
+        $equalCheck = true;
+        if (false === $timestamp = strtotime(ltrim($value, '<>='))) {
             throw new \InvalidArgumentException(
                 sprintf('The value %s is not a valid strtotime format', $value)
             );
         }
+        if (preg_match('/^<(?!=)/', $value)) {
+            $lessCheck = true;
+            $equalCheck = false;
+        }
+        if (preg_match('/^<=/', $value)) {
+            $lessCheck = true;
+            $equalCheck = true;
+        }
+        if (preg_match('/^>=/', $value)) {
+            $lessCheck = false;
+            $equalCheck = true;
+        }
+        if (preg_match('/^>(?!=)/', $value)) {
+            $lessCheck = false;
+            $equalCheck = false;
+        }
         $value = \DateTime::createFromFormat('U', $timestamp);
-        return new self($value);
+        return new self($value, $lessCheck, $equalCheck);
     }
 
     /**
      * @return bool
      */
-    public function isAscendingOrder()
+    public function isLessCheck()
     {
-        return $this->ascendingOrder;
+        return $this->lessCheck;
     }
 
     /**
@@ -58,5 +76,27 @@ class Date extends Base
     public function isEqualCheck()
     {
         return $this->equalCheck;
+    }
+
+    /**
+     * @return Callable
+     */
+    public function getComparator()
+    {
+        return function($v) {
+            if ($this->isLessCheck()) {
+                if ($this->isEqualCheck()) {
+                    return $v <= $this->getValue();
+                } else {
+                    return $v < $this->getValue();
+                }
+            } else {
+                if ($this->isEqualCheck()) {
+                    return $v >= $this->getValue();
+                } else {
+                    return $v > $this->getValue();
+                }
+            }
+        };
     }
 }
