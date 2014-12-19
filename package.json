@@ -1,0 +1,23 @@
+{
+  "name": "phpspec-runner",
+  "version": "1.0.0",
+  "description": "phpspec runner",
+  "directories": {
+    "test": "tests"
+  },
+  "devDependencies": {
+    "coffee-script": "^1.8.0",
+    "gulp": "^3.8.10",
+    "gulp-notify": "^2.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/matteosister/functional-filter.git"
+  },
+  "author": "Matteo Giachino",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/matteosister/functional-filter/issues"
+  },
+  "homepage": "https://github.com/matteosister/functional-filter"
+}

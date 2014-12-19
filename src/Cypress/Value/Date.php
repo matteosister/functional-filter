@@ -35,29 +35,15 @@ class Date extends Base
     public static function fromString($value)
     {
         Assertion::notBlank($value);
-        $lessCheck = true;
-        $equalCheck = true;
-        if (false === $timestamp = strtotime(ltrim($value, '<>='))) {
+        Assertion::regex($value, '/^[<>]=?\d{4}-\d{2}-\d{2}/');
+        $timestamp = strtotime(ltrim($value, '<>='));
+        if (false === $timestamp) {
             throw new \InvalidArgumentException(
                 sprintf('The value %s is not a valid strtotime format', $value)
             );
         }
-        if (preg_match('/^<(?!=)/', $value)) {
-            $lessCheck = true;
-            $equalCheck = false;
-        }
-        if (preg_match('/^<=/', $value)) {
-            $lessCheck = true;
-            $equalCheck = true;
-        }
-        if (preg_match('/^>=/', $value)) {
-            $lessCheck = false;
-            $equalCheck = true;
-        }
-        if (preg_match('/^>(?!=)/', $value)) {
-            $lessCheck = false;
-            $equalCheck = false;
-        }
+        $lessCheck = (bool) preg_match('/^</', $value);
+        $equalCheck = (bool) preg_match('/^[<>]=/', $value);
         $value = \DateTime::createFromFormat('U', $timestamp);
         return new self($value, $lessCheck, $equalCheck);
     }
