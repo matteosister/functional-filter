@@ -10,12 +10,17 @@ class FFilterSpec extends ObjectBehavior
 {
     function let()
     {
-        $this->beConstructedWith(array());
+        $this->beConstructedWith([]);
     }
 
     function it_is_initializable()
     {
         $this->shouldHaveType('Cypress\FFilter');
+    }
+
+    function it_is_initializable_with_a_static_method()
+    {
+        $this->init([])->shouldBeAnInstanceOf('Cypress\FFilter');
     }
 
     function it_has_a_all_method()
@@ -36,22 +41,22 @@ class FFilterSpec extends ObjectBehavior
 
     function it_filters_a_collection_with_one_filter_matching()
     {
-        $this->beConstructedWith(array('a'));
+        $this->beConstructedWith(['a']);
         $this->filter('a')->shouldContain('a');
     }
 
     function it_filters_a_collection_with_none_filter_matching()
     {
-        $this->beConstructedWith(array('a'));
+        $this->beConstructedWith(['a']);
         $this->filter('b')->shouldBeEmpty();
     }
 
     function getMatchers()
     {
-        return array(
+        return [
             'contain' => function(Sequence $subject, $key) {
                 return $subject->contains($key);
             }
-        );
+        ];
     }
 }

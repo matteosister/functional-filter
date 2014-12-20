@@ -5,6 +5,7 @@ namespace Cypress;
 use Assert\Assertion;
 use Cypress\Value\Factory;
 use Cypress\Value\Value;
+use PhpCollection\Map;
 use PhpCollection\Sequence;
 
 class FFilter
@@ -24,6 +25,15 @@ class FFilter
     }
 
     /**
+     * @param $elements
+     * @return FFilter
+     */
+    public static function init($elements)
+    {
+        return new self($elements);
+    }
+
+    /**
      * @return \Traversable
      */
     public function all()
@@ -33,17 +43,25 @@ class FFilter
 
     /**
      * @param array $filters
-     * @return array|Sequence|\Traversable
+     * @return array|Sequence|Map|\Traversable
      */
     public function filter($filters = array())
     {
-        if (is_array($filters)) {
-            $filters = new Sequence($filters);
+        $this->normalizeFilters($filters);
+        if ($filters instanceof Sequence) {
+            return $this->handleSequence($filters);
         }
-        if (is_string($filters)) {
-            $filters = new Sequence(array($filters));
+        if ($filters instanceof Map) {
+            return $this->handleMap($filters);
         }
-        Assertion::implementsInterface($filters, '\Traversable');
+    }
+
+    /**
+     * @param Sequence $filters
+     * @return Sequence
+     */
+    private function handleSequence(Sequence $filters)
+    {
         $elements = $this->elements;
         return $filters
             ->map(function ($v) {
@@ -58,6 +76,47 @@ class FFilter
     }
 
     /**
+     * @param Map $filters
+     * @return array|Sequence|\Traversable
+     */
+    private function handleMap(Map $filters)
+    {
+        return $this->elements;
+    }
+
+    /**
+     * given a string, an array, a Sequence or A Map, gives back always a Sequence or a Map
+     *
+     * @param $filters
+     */
+    private function normalizeFilters(&$filters)
+    {
+        if ($filters instanceof Sequence || $filters instanceof Map) {
+            return;
+        }
+        if (is_string($filters)) {
+            $filters = new Sequence([$filters]);
+        }
+        if (is_array($filters)) {
+            $filters = $this->isAssociative($filters) && count($filters) > 0
+                ? new Map($filters)
+                : new Sequence($filters);
+        }
+        Assertion::implementsInterface($filters, '\Traversable');
+    }
+
+    /**
+     * whether the array is associative or not
+     *
+     * @param $arr
+     * @return bool
+     */
+    public function isAssociative($arr)
+    {
+        return array_keys($arr) !== range(0, count($arr) - 1);
+    }
+
+    /**
      * @param $method
      * @param $value
      *
@@ -66,7 +125,7 @@ class FFilter
     protected function filtererByProperty($method, $value)
     {
         return function ($subject) use ($method, $value) {
-            $compareTo = call_user_func(array($subject, $method));
+            $compareTo = call_user_func([$subject, $method]);
             if (is_array($value)) {
                 return $this->fcfCompareArray($compareTo, $value);
             }
@@ -115,8 +174,8 @@ class FFilter
     private function fcfExtractValue($value)
     {
         if (is_string($value) && $value[0] == '-') {
-            return array(false, substr($value, 1));
+            return [false, substr($value, 1)];
         }
-        return array(true, $value);
+        return [true, $value];
     }
 }

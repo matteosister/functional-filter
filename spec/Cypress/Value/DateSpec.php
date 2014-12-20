@@ -29,17 +29,17 @@ class DateSpec extends ObjectBehavior
 
     function it_throws_with_an_empty_string()
     {
-        $this->shouldThrow('InvalidArgumentException')->during('fromString', array(''));
+        $this->shouldThrow('InvalidArgumentException')->during('fromString', ['']);
     }
 
     function it_throws_with_a_date_with_wrong_formatting()
     {
-        $this->shouldThrow('InvalidArgumentException')->during('fromString', array('<2012-1-02'));
+        $this->shouldThrow('InvalidArgumentException')->during('fromString', ['<2012-1-02']);
     }
 
     function it_throws_with_a_date_with_wrong_date()
     {
-        $this->shouldThrow('InvalidArgumentException')->during('fromString', array('<2012-13-02'));
+        $this->shouldThrow('InvalidArgumentException')->during('fromString', ['<2012-13-02']);
     }
 
     function it_should_do_a_lesser_check()
@@ -68,6 +68,6 @@ class DateSpec extends ObjectBehavior
 
     function it_should_fail_if_no_sign_is_given()
     {
-        $this->shouldThrow('Assert\InvalidArgumentException')->during('fromString', array('2012-10-02'));
+        $this->shouldThrow('Assert\InvalidArgumentException')->during('fromString', ['2012-10-02']);
     }
 }

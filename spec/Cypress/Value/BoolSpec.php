@@ -29,7 +29,7 @@ class BoolSpec extends ObjectBehavior
 
     function it_should_be_constructed_with_a_static_method()
     {
-        $this->shouldThrow('Assert\InvalidArgumentException')->during('fromString', array(1));
+        $this->shouldThrow('Assert\InvalidArgumentException')->during('fromString', [1]);
     }
 
     function it_should_default_with_an_empty_string()
