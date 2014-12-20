@@ -9,7 +9,7 @@ gulp.task 'phpspec', (cb) ->
         cb()
 
 gulp.task 'watch', (event) ->
-    watcher = gulp.watch ['**/*.php'], ['phpunit']
+    watcher = gulp.watch ['**/*.php'], ['phpspec']
     watcher.on 'change', (event) ->
 
 gulp.task 'default', ['watch']
