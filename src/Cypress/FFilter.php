@@ -5,11 +5,19 @@ namespace Cypress;
 use Assert\Assertion;
 use Cypress\Value\Factory;
 use Cypress\Value\Value;
+use PhpCollection\AbstractCollection;
+use PhpCollection\CollectionInterface;
 use PhpCollection\Map;
 use PhpCollection\Sequence;
+use Functional as F;
+use Symfony\Component\PropertyAccess\PropertyAccess;
+use Symfony\Component\PropertyAccess\PropertyAccessor;
 
 class FFilter
 {
+    /**
+     * @var Sequence
+     */
     private $elements;
 
     /**
@@ -17,11 +25,7 @@ class FFilter
      */
     public function __construct($elements)
     {
-        if (is_array($elements)) {
-            $elements = new Sequence($elements);
-        }
-        Assertion::implementsInterface($elements, '\Traversable');
-        $this->elements = $elements;
+        $this->elements = $this->normalizeSequence($elements);
     }
 
     /**
@@ -47,7 +51,7 @@ class FFilter
      */
     public function filter($filters = array())
     {
-        $this->normalizeFilters($filters);
+        $filters = $this->normalizeCollection($filters);
         if ($filters instanceof Sequence) {
             return $this->handleSequence($filters);
         }
@@ -63,13 +67,7 @@ class FFilter
     private function handleSequence(Sequence $filters)
     {
         $elements = $this->elements;
-        return $filters
-            ->map(function ($v) {
-                if ($v instanceof Value) {
-                    return $v;
-                }
-                return Factory::create($v);
-            })
+        return $this->createValuesFilter($filters)
             ->foldLeft($elements, function (Sequence $elements, Value $value) {
                 return $elements->filter($value->getComparator());
             });
@@ -81,28 +79,52 @@ class FFilter
      */
     private function handleMap(Map $filters)
     {
-        return $this->elements;
+        $elements = $this->elements;
+        $valueFilters = $this->createValuesFilter($filters);
+        return F\reduce_left($valueFilters, function(Value $valueFilter, $property, $valueFilters, Sequence $elements) {
+            return $elements->filter(function ($element) use ($property, $valueFilter) {
+                $pa = new PropertyAccessor();
+                return $pa->getValue($element, '['.$property.']') === $valueFilter->getValue();
+            });
+        }, $elements);
     }
 
     /**
      * given a string, an array, a Sequence or A Map, gives back always a Sequence or a Map
      *
-     * @param $filters
+     * @param $collection
+     * @return Map|Sequence
      */
-    private function normalizeFilters(&$filters)
+    private function normalizeCollection(&$collection)
     {
-        if ($filters instanceof Sequence || $filters instanceof Map) {
-            return;
+        if (is_string($collection)) {
+            $collection = new Sequence([$collection]);
         }
-        if (is_string($filters)) {
-            $filters = new Sequence([$filters]);
+        if (is_array($collection)) {
+            $collection = $this->isAssociative($collection) && count($collection) > 0
+                ? new Map($collection)
+                : new Sequence($collection);
         }
-        if (is_array($filters)) {
-            $filters = $this->isAssociative($filters) && count($filters) > 0
-                ? new Map($filters)
-                : new Sequence($filters);
+        Assertion::implementsInterface($collection, '\Traversable');
+        return $collection;
+    }
+
+    /**
+     * given a string, an array, a Sequence, gives back always a Sequence
+     *
+     * @param $collection
+     * @return Map|Sequence
+     */
+    private function normalizeSequence(&$collection)
+    {
+        if (is_string($collection)) {
+            $collection = new Sequence([$collection]);
         }
-        Assertion::implementsInterface($filters, '\Traversable');
+        if (is_array($collection)) {
+            $collection = new Sequence($collection);
+        }
+        Assertion::implementsInterface($collection, '\Traversable');
+        return $collection;
     }
 
     /**
@@ -117,65 +139,16 @@ class FFilter
     }
 
     /**
-     * @param $method
-     * @param $value
-     *
-     * @return \Closure
+     * @param CollectionInterface $filters
+     * @return Map|Sequence
      */
-    protected function filtererByProperty($method, $value)
+    private function createValuesFilter(CollectionInterface $filters)
     {
-        return function ($subject) use ($method, $value) {
-            $compareTo = call_user_func([$subject, $method]);
-            if (is_array($value)) {
-                return $this->fcfCompareArray($compareTo, $value);
+        return $this->normalizeCollection(F\map($filters, function ($v) {
+            if ($v instanceof Value) {
+                return $v;
             }
-            if (is_scalar($value)) {
-                return $this->fcfCompareScalar($compareTo, $this->fcfExtractValue($value));
-            }
-            throw new \RuntimeException('String or scalar requested');
-        };
-    }
-
-    /**
-     * @param $value
-     * @param array $compareTo
-     * @return bool
-     */
-    private function fcfCompareArray($value, array $compareTo)
-    {
-        $seq = new Sequence($compareTo);
-        return $seq
-            ->map(function ($v) {
-                return $this->fcfExtractValue($v);
-            })
-            ->exists(function ($v) use ($value) {
-                return $this->fcfCompareScalar($value, $v);
-            });
-    }
-
-    /**
-     * @param $value
-     * @param $compareTo
-     * @return bool
-     */
-    private function fcfCompareScalar($value, $compareTo)
-    {
-        if ($compareTo[0]) {
-            return $compareTo[1] === $value;
-        } else {
-            return $compareTo[1] !== $value;
-        }
-    }
-
-    /**
-     * @param $value
-     * @return array
-     */
-    private function fcfExtractValue($value)
-    {
-        if (is_string($value) && $value[0] == '-') {
-            return [false, substr($value, 1)];
-        }
-        return [true, $value];
+            return Factory::create($v);
+        }));
     }
 }

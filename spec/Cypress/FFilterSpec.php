@@ -2,6 +2,7 @@
 
 namespace spec\Cypress;
 
+use PhpCollection\AbstractCollection;
 use PhpCollection\Sequence;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -42,7 +43,7 @@ class FFilterSpec extends ObjectBehavior
     function it_filters_a_collection_with_one_filter_matching()
     {
         $this->beConstructedWith(['a']);
-        $this->filter('a')->shouldContain('a');
+        $this->filter('a')->shouldContains('a');
     }
 
     function it_filters_a_collection_with_none_filter_matching()
@@ -51,11 +52,21 @@ class FFilterSpec extends ObjectBehavior
         $this->filter('b')->shouldBeEmpty();
     }
 
+    function it_filters_a_map_with_one_filter_matching()
+    {
+        $this->beConstructedWith([['a' => 'a'], ['a' => 'b']]);
+        $this->filter(['a' => 'a'])->shouldContains(['a' => 'a']);
+        $this->filter(['a' => 'a'])->shouldNotContains(['a' => 'b']);
+    }
+
     function getMatchers()
     {
         return [
-            'contain' => function(Sequence $subject, $key) {
-                return $subject->contains($key);
+            'contains' => function(AbstractCollection $subject, $value) {
+                return $subject->contains($value);
+            },
+            'notContains' => function(AbstractCollection $subject, $value) {
+                return !$subject->contains($value);
             }
         ];
     }

@@ -4,20 +4,20 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "bd4eeb0c2e0990f5a0005b567d8c0b31",
+    "hash": "cbe44c716bc98c3f6fed5f0f505ac823",
     "packages": [
         {
             "name": "beberlei/assert",
-            "version": "v2.1",
+            "version": "v2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/beberlei/assert.git",
-                "reference": "8c60f8a1c31dcd61c928bf024bc59a3472f00632"
+                "reference": "160eba4d1fbe692e42b3cf8a20b92ab23e3a8759"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/beberlei/assert/zipball/8c60f8a1c31dcd61c928bf024bc59a3472f00632",
-                "reference": "8c60f8a1c31dcd61c928bf024bc59a3472f00632",
+                "url": "https://api.github.com/repos/beberlei/assert/zipball/160eba4d1fbe692e42b3cf8a20b92ab23e3a8759",
+                "reference": "160eba4d1fbe692e42b3cf8a20b92ab23e3a8759",
                 "shasum": ""
             },
             "require": {
@@ -26,7 +26,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.0.x-dev"
+                    "dev-master": "2.3-dev"
                 }
             },
             "autoload": {
@@ -53,7 +53,7 @@
                 "assertion",
                 "validation"
             ],
-            "time": "2014-11-06 10:17:53"
+            "time": "2014-12-18 19:12:40"
         },
         {
             "name": "lstrojny/functional-php",
@@ -205,6 +205,64 @@
                 "type"
             ],
             "time": "2014-01-09 22:37:17"
+        },
+        {
+            "name": "symfony/property-access",
+            "version": "v2.6.1",
+            "target-dir": "Symfony/Component/PropertyAccess",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/PropertyAccess.git",
+                "reference": "da9d53d17e686e5a8c84e310a68b35e783fcebc0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/PropertyAccess/zipball/da9d53d17e686e5a8c84e310a68b35e783fcebc0",
+                "reference": "da9d53d17e686e5a8c84e310a68b35e783fcebc0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.6-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\PropertyAccess\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                }
+            ],
+            "description": "Symfony PropertyAccess Component",
+            "homepage": "http://symfony.com",
+            "keywords": [
+                "access",
+                "array",
+                "extraction",
+                "index",
+                "injection",
+                "object",
+                "property",
+                "property path",
+                "reflection"
+            ],
+            "time": "2014-12-02 20:19:20"
         }
     ],
     "packages-dev": [
@@ -1483,6 +1541,9 @@
         "lstrojny/functional-php": 15
     },
     "prefer-stable": false,
-    "platform": [],
+    "prefer-lowest": false,
+    "platform": {
+        "php": ">=5.4.0"
+    },
     "platform-dev": []
 }
