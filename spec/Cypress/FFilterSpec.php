@@ -55,8 +55,8 @@ class FFilterSpec extends ObjectBehavior
     function it_filters_a_map_with_one_filter_matching()
     {
         $this->beConstructedWith([['a' => 'a'], ['a' => 'b']]);
-        $this->filter(['a' => 'a'])->shouldContains(['a' => 'a']);
-        $this->filter(['a' => 'a'])->shouldNotContains(['a' => 'b']);
+        $this->filter(['[a]' => 'a'])->shouldContains(['a' => 'a']);
+        $this->filter(['[a]' => 'a'])->shouldNotContains(['a' => 'b']);
     }
 
     function getMatchers()

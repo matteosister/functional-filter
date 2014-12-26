@@ -26,6 +26,7 @@
                 <directory>tests</directory>
                 <directory>bin</directory>
                 <directory>examples</directory>
+                <directory>spec</directory>
             </exclude>
         </whitelist>
     </filter>

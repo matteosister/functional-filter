@@ -5,12 +5,10 @@ namespace Cypress;
 use Assert\Assertion;
 use Cypress\Value\Factory;
 use Cypress\Value\Value;
-use PhpCollection\AbstractCollection;
 use PhpCollection\CollectionInterface;
 use PhpCollection\Map;
 use PhpCollection\Sequence;
 use Functional as F;
-use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
 
 class FFilter
@@ -38,11 +36,11 @@ class FFilter
     }
 
     /**
-     * @return \Traversable
+     * @return array
      */
     public function all()
     {
-        return $this->elements;
+        return $this->elements->all();
     }
 
     /**
@@ -67,7 +65,8 @@ class FFilter
     private function handleSequence(Sequence $filters)
     {
         $elements = $this->elements;
-        return $this->createValuesFilter($filters)
+        return $this
+            ->createValuesFilter($filters)
             ->foldLeft($elements, function (Sequence $elements, Value $value) {
                 return $elements->filter($value->getComparator());
             });
@@ -84,7 +83,7 @@ class FFilter
         return F\reduce_left($valueFilters, function(Value $valueFilter, $property, $valueFilters, Sequence $elements) {
             return $elements->filter(function ($element) use ($property, $valueFilter) {
                 $pa = new PropertyAccessor();
-                return $pa->getValue($element, '['.$property.']') === $valueFilter->getValue();
+                return $pa->getValue($element, $property) === $valueFilter->getValue();
             });
         }, $elements);
     }
@@ -123,7 +122,7 @@ class FFilter
         if (is_array($collection)) {
             $collection = new Sequence($collection);
         }
-        Assertion::implementsInterface($collection, '\Traversable');
+        Assertion::isInstanceOf($collection, 'PhpCollection\Sequence');
         return $collection;
     }
 
@@ -133,7 +132,7 @@ class FFilter
      * @param $arr
      * @return bool
      */
-    public function isAssociative($arr)
+    private function isAssociative($arr)
     {
         return array_keys($arr) !== range(0, count($arr) - 1);
     }
