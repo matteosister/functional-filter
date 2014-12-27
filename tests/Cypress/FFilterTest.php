@@ -8,9 +8,7 @@
 
 namespace Cypress;
 
-use Prophecy\PhpUnit\ProphecyTestCase;
-
-class FFilterTest extends ProphecyTestCase
+class FFilterTest extends FunctionalFilterTestCase
 {
     /**
      * @dataProvider provider_filter_simple
@@ -29,28 +27,8 @@ class FFilterTest extends ProphecyTestCase
         if (is_scalar($notExpectedResults)) {
             $notExpectedResults = [$notExpectedResults];
         }
-        foreach ($expectedResults as $result) {
-            $this->assertContains(
-                $result,
-                $filteredCollection,
-                sprintf(
-                    'The collection should contains %s, but it is not. It contains: %s',
-                    $result,
-                    implode(', ', iterator_to_array($filteredCollection))
-                )
-            );
-        }
-        foreach ($notExpectedResults as $notExpectedResult) {
-            $this->assertNotContains(
-                $notExpectedResult,
-                $filteredCollection,
-                sprintf(
-                    'The collection should NOT contains %s, but it is. It contains: %s',
-                    $notExpectedResult,
-                    implode(', ', iterator_to_array($filteredCollection))
-                )
-            );
-        }
+        $this->checkContains($expectedResults, $filteredCollection);
+        $this->checkNotContains($notExpectedResults, $filteredCollection);
     }
 
     public function provider_filter_simple()
