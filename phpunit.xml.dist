@@ -14,7 +14,7 @@
 
     <testsuites>
         <testsuite name="FunctionalFilters Test Suite">
-            <directory>tests</directory>
+            <file>tests/Cypress/FunctionalFilter/functions_test.php</file>
         </testsuite>
     </testsuites>
 

@@ -14,5 +14,4 @@ tools:
         timeout: 600
 filter:
     excluded_paths:
-        - 'spec/*'
         - 'tests/*'

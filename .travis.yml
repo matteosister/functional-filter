@@ -21,4 +21,3 @@ before_script:
 
 script:
   - bin/phpunit
-  - bin/phpspec run --format=pretty

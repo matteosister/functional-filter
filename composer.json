@@ -4,14 +4,12 @@
     "require": {
         "php": ">=5.4.0",
         "phpcollection/phpcollection": "~0.4",
-        "beberlei/assert": "~2.1",
         "lstrojny/functional-php": "~1.0.0-alpha4",
-        "symfony/property-access": "~2.6"
+        "symfony/property-access": "~2.6",
+        "react/partial": "~2.0"
     },
     "require-dev": {
-        "phpspec/phpspec": "~2.0",
-        "phpunit/phpunit": "~4.4",
-        "phpspec/prophecy-phpunit": "~1.0"
+        "phpunit/phpunit": "~4.4"
     },
     "license": "LGPL-3.0+",
     "authors": [
@@ -24,7 +22,7 @@
         "bin-dir": "bin"
     },
     "autoload": {
-        "psr-0": {"": "src", "Cypress": ["src", "tests"]}
+        "files": ["src/Cypress/FunctionalFilter/functions.php"]
     },
     "minimum-stability": "stable"
 }

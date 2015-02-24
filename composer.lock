@@ -4,57 +4,8 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5ef40915c5de0ca617419883ae7dc315",
+    "hash": "770ae58bda8e39e8645b474d9c78fba0",
     "packages": [
-        {
-            "name": "beberlei/assert",
-            "version": "v2.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/beberlei/assert.git",
-                "reference": "160eba4d1fbe692e42b3cf8a20b92ab23e3a8759"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/beberlei/assert/zipball/160eba4d1fbe692e42b3cf8a20b92ab23e3a8759",
-                "reference": "160eba4d1fbe692e42b3cf8a20b92ab23e3a8759",
-                "shasum": ""
-            },
-            "require": {
-                "ext-mbstring": "*"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.3-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Assert": "lib/"
-                },
-                "files": [
-                    "lib/Assert/functions.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-2-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Benjamin Eberlei",
-                    "email": "kontakt@beberlei.de"
-                }
-            ],
-            "description": "Thin assertion library for input validation in business models.",
-            "keywords": [
-                "assert",
-                "assertion",
-                "validation"
-            ],
-            "time": "2014-12-18 19:12:40"
-        },
         {
             "name": "lstrojny/functional-php",
             "version": "1.0.0-alpha4",
@@ -207,6 +158,48 @@
             "time": "2014-01-09 22:37:17"
         },
         {
+            "name": "react/partial",
+            "version": "v2.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/reactphp/partial.git",
+                "reference": "b75ab9438424536c669d596feb94a37cc3dc644e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/reactphp/partial/zipball/b75ab9438424536c669d596feb94a37cc3dc644e",
+                "reference": "b75ab9438424536c669d596feb94a37cc3dc644e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "React\\Partial": "src"
+                },
+                "files": [
+                    "src/React/Partial/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Partial function application.",
+            "keywords": [
+                "functional-programming",
+                "partial"
+            ],
+            "time": "2014-12-12 16:39:23"
+        },
+        {
             "name": "symfony/property-access",
             "version": "v2.6.1",
             "target-dir": "Symfony/Component/PropertyAccess",
@@ -266,6 +259,55 @@
         }
     ],
     "packages-dev": [
+        {
+            "name": "beberlei/assert",
+            "version": "v2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/beberlei/assert.git",
+                "reference": "160eba4d1fbe692e42b3cf8a20b92ab23e3a8759"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/beberlei/assert/zipball/160eba4d1fbe692e42b3cf8a20b92ab23e3a8759",
+                "reference": "160eba4d1fbe692e42b3cf8a20b92ab23e3a8759",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Assert": "lib/"
+                },
+                "files": [
+                    "lib/Assert/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Benjamin Eberlei",
+                    "email": "kontakt@beberlei.de"
+                }
+            ],
+            "description": "Thin assertion library for input validation in business models.",
+            "keywords": [
+                "assert",
+                "assertion",
+                "validation"
+            ],
+            "time": "2014-12-18 19:12:40"
+        },
         {
             "name": "doctrine/instantiator",
             "version": "1.0.4",
